@@ -1,0 +1,11 @@
+body {
+	color: Lime;
+	background-color: Black;
+	max-width: 720px;
+	margin: auto;
+	}
+
+a:link		{ color: Green; }
+a:visited	{ color: Olive; }
+a:hover		{ color: DarkGreen; }
+a:active	{ color: Chartreuse; }
