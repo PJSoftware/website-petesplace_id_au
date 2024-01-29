@@ -1,0 +1,27 @@
+version: "3" # Docker version
+services:
+  www:
+    build: .
+    image: myphp:7.4
+    volumes:
+      - "./www:/var/www/html" # sync project dir with container web dir
+    ports:
+      - 80:80
+      - 443:443 # for future ssl traffic
+  db:
+    image: mariadb:10.6.16 # petesplace is currently running 10.6.16
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d" # sync persistent sql files with container
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
