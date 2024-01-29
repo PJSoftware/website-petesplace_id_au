@@ -1,0 +1,19 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    silent: true
+
+  up:
+    desc: "docker-compose up"
+    cmds:
+      - docker-compose down
+      - docker-compose up
+
+  mysqli:
+    cmds:
+      - docker compose run www docker-php-ext-install mysqli
