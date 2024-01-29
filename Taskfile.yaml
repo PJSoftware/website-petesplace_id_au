@@ -4,17 +4,24 @@ version: "3"
 
 tasks:
   default:
+    desc: "list all available tasks"
     cmds:
       - task --list-all
     silent: true
 
   up:
-    desc: "docker-compose up"
+    desc: "start all the running docker containers (stopping them first if necessary)"
     cmds:
-      - docker-compose down
+      - task: down
       - docker-compose up -d
       - task: status
 
+  down:
+    desc: "stop all the running docker containers"
+    cmds:
+      - docker-compose down
+
   status:
+    desc: "current status of docker containers"
     cmds:
       - docker-compose ps

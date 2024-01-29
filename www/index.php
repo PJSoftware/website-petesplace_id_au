@@ -1,23 +1,13 @@
-<?php
-
-$connect = mysqli_connect(
-  'db',
-  'user',
-  'password',
-  'mydatabase'
-);
-
-$table_name = 'php_docker_table';
-
-$query = "SELECT * FROM $table_name";
-
-$response = mysqli_query($connect, $query);
-
-echo "<strong>$table_name</strong>";
-while ($i = mysqli_fetch_assoc($response)) {
-  echo "<p>".$i['title']."</p>";
-  echo "<p>".$i['body']."</p>";
-  echo "<p>".$i['date_created']."</p>";
-  echo "<hr />";
-}
-?>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/coming_soon.css">
+	<title>Pete's Place</title>
+</head>
+<body>
+	<ul>
+		<li><a href="books-star-trek.html">Star Trek Library</a></li>
+		<li><a href="test_db.php">Test DB Connections</a></li>
+		<li><a href="phpinfo.php">PHP Info</a></li>
+	</ul>
+</body>
+</html>
