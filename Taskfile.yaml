@@ -12,8 +12,9 @@ tasks:
     desc: "docker-compose up"
     cmds:
       - docker-compose down
-      - docker-compose up
+      - docker-compose up -d
+      - task: status
 
-  mysqli:
+  status:
     cmds:
-      - docker compose run www docker-php-ext-install mysqli
+      - docker-compose ps

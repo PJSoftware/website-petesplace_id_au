@@ -1,13 +1,13 @@
 version: "3" # Docker version
 services:
   www:
-    image: php:7.4-apache # petesplace is currently running 7.4
+    build: .
+    image: myphp:7.4
     volumes:
       - "./www:/var/www/html" # sync project dir with container web dir
     ports:
       - 80:80
       - 443:443 # for future ssl traffic
-    # command: "docker-php-ext-cli mysqli"
   db:
     image: mariadb:10.6.16 # petesplace is currently running 10.6.16
     environment:
