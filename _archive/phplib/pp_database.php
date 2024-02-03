@@ -12,6 +12,7 @@ class Database {
     $HOST = "localhost";
     switch($db) {
       case "petesplace" : $USER = "ppaccess"; $PWD = "pp.access.1154"; break;
+      case "library" : $USER = "library"; $PWD = "nJkcCZrjLX9DW9_KghbQTLmKDoht!m6W"; break;
       default : die("Database::new error, unknown database '$db'");
       }
     $this->dbLink = mysql_connect($HOST,"pete_$USER",$PWD) or die("Database error :: Connecting");
