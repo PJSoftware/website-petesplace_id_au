@@ -9,14 +9,14 @@ tasks:
       - task --list-all
     silent: true
 
-  up:
+  start:
     desc: "start all the running docker containers (stopping them first if necessary)"
     cmds:
-      - task: down
+      - task: stop
       - docker-compose up -d
       - task: status
 
-  down:
+  stop:
     desc: "stop all the running docker containers"
     cmds:
       - docker-compose down
