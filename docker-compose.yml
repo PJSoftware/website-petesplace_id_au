@@ -12,9 +12,9 @@ services:
     image: mariadb:10.6.16 # petesplace is currently running 10.6.16
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=mydatabase
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=pete_library
+      - MYSQL_USER=pete_library
+      - MYSQL_PASSWORD=nJkcCZrjLX9DW9_KghbQTLmKDoht!m6W
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
       - "./db-init:/docker-entrypoint-initdb.d" # sync persistent sql files with container
