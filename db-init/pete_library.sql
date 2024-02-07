@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 04, 2024 at 06:24 PM
+-- Generation Time: Feb 07, 2024 at 11:21 PM
 -- Server version: 10.6.16-MariaDB
 -- PHP Version: 8.1.27
 
@@ -47,7 +47,11 @@ INSERT INTO `book` (`ID`, `title`, `subtitle`, `author_ident`, `owned`) VALUES
 (5, 'Garbage Man@The', NULL, 'Irving', 1),
 (6, 'What I Mean When I Say I\'m Autistic', 'Unpuzzling a Life on the Autism Spectrum', 'Kotowicz', 1),
 (7, 'Witch of Tophet County@The', 'A Comedy of Horrors', 'Schiller', 1),
-(8, 'Touch of Twilight@The', 'The Third Sign of the Zodiac', 'Pettersson', 1);
+(8, 'Touch of Twilight@The', 'The Third Sign of the Zodiac', 'Pettersson', 1),
+(9, 'Unleashed', NULL, 'Kimelman', 1),
+(10, 'Death in the Dark', NULL, 'Kimelman', 1),
+(11, 'Insatiable', NULL, 'Kimelman', 1),
+(12, 'Taste of Night@The', 'The Second Sign of the Zodiac', 'Pettersson', 1);
 
 -- --------------------------------------------------------
 
@@ -77,7 +81,11 @@ INSERT INTO `book_by` (`book_id`, `person_id`, `role`, `sort_by`) VALUES
 (6, 8, 'author', 1),
 (7, 9, 'author', 1),
 (7, 10, 'narrator', 1),
-(8, 11, 'author', 1);
+(8, 11, 'author', 1),
+(9, 12, 'author', 1),
+(10, 12, 'author', 1),
+(11, 12, 'author', 1),
+(12, 11, 'author', 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +107,11 @@ INSERT INTO `book_read` (`book_id`, `date_started`, `date_finished`) VALUES
 (5, '2024-01-29', '2024-02-04'),
 (6, '2024-01-01', '2024-01-05'),
 (7, '2024-01-24', NULL),
-(8, '2024-01-07', '2024-01-28');
+(8, '2024-01-07', '2024-01-28'),
+(9, NULL, '2024-01-04'),
+(10, NULL, '2024-01-17'),
+(11, NULL, '2024-01-23'),
+(12, NULL, '2024-01-01');
 
 -- --------------------------------------------------------
 
@@ -129,7 +141,8 @@ INSERT INTO `person` (`ID`, `given_name`, `family_name`, `honorific`) VALUES
 (8, 'Annie', 'Kotowicz', NULL),
 (9, 'J H', 'Schiller', NULL),
 (10, 'Soneela', 'Nankani', NULL),
-(11, 'Vicki', 'Pettersson', NULL);
+(11, 'Vicki', 'Pettersson', NULL),
+(12, 'Emily', 'Kimelman', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,7 +168,8 @@ INSERT INTO `series` (`ID`, `series`, `author`, `parent`) VALUES
 (4, 'Hidden Valor', 7, NULL),
 (5, 'Witch of Tophet County@The', 9, NULL),
 (6, 'Nemesis', 3, NULL),
-(7, 'Signs of the Zodiac', 11, NULL);
+(7, 'Signs of the Zodiac', 11, NULL),
+(8, 'Sydney Rye Mysteries', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,7 +193,11 @@ INSERT INTO `series_book` (`series_id`, `book_id`, `number`) VALUES
 (4, 5, 1.00),
 (5, 7, 1.00),
 (6, 3, 1.00),
-(7, 8, 3.00);
+(7, 8, 3.00),
+(7, 12, 2.00),
+(8, 9, 1.00),
+(8, 10, 2.00),
+(8, 11, 3.00);
 
 --
 -- Indexes for dumped tables
@@ -225,19 +243,19 @@ ALTER TABLE `series_book`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `series`
 --
 ALTER TABLE `series`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
