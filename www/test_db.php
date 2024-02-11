@@ -94,6 +94,30 @@ function author_string($library,$book_id) {
   return $rv;
 }
 
+function narrator_string($library,$edition_id) {
+  $query = "SELECT role, given_name, family_name ".
+    "FROM person,edition_by ".
+    "WHERE edition_by.edition_id = $edition_id ".
+      "AND person.ID = edition_by.person_id ".
+      "AND role = 'narrator' ".
+    "ORDER BY edition_by.sort_by";
+  $result = $library->query($query);
+
+  if ($result == FALSE) {
+    return "--- query failed ($query) ---";
+  }
+
+  $rv = "";
+  while ($person = $result->fetch_assoc()) {
+    if ($rv > "") {
+      $rv .= ", et al";
+      return $rv;
+    }
+    $rv .= "$person[given_name] $person[family_name]";
+  }
+  return $rv;
+}
+
 function series_string($library,$book_id) {
   $query = "SELECT series, number, parent ".
     "FROM series,series_book ".
@@ -131,6 +155,28 @@ function series_name($library,$name,$parent) {
   return title_format($parent['series']) . ": $name";
 }
 
+function editions($library,$book_id) {
+  $result = $library->query("SELECT id,edition FROM book_edition WHERE book_id = $book_id");
+  $rv = "";
+  $ed_count = 0;
+  while ($edition = $result->fetch_assoc()) {
+    if ($rv > "") {
+      $rv .= "<br />";
+    }
+    if ($edition['edition'] == "audible") {
+      $rv .= $edition['edition'];
+      $rv .= " <span class=\"subtitle\">(" . narrator_string($library,$edition['id']) . ")</span>";
+    } else {
+      $rv .= $edition['edition'];
+    }
+    $ed_count++;
+  }
+  if ($rv == "") {
+    $rv = "---"; 
+  }
+  return $rv;  
+}
+
 function book_read($library,$book_id) {
   $result = $library->query("SELECT date_started,date_finished FROM book_read WHERE book_id = $book_id");
   $read = $result->fetch_assoc();
@@ -157,6 +203,7 @@ $books = $library->query($query);
     <th>Author</th>
     <th>Series</th>
     <th>Read</th>
+    <th>Edition</th>
 </tr></thead>
 <?php
 while ($book = $books->fetch_assoc()) {
@@ -165,6 +212,7 @@ while ($book = $books->fetch_assoc()) {
   echo "<td>".author_string($library,$book['ID'])."</td>";
   echo "<td>".series_string($library,$book['ID'])."</td>";
   echo "<td>".book_read($library,$book['ID'])."</td>";
+  echo "<td>".editions($library,$book['ID'])."</td>";
   echo "</tr>";
 }
 ?>

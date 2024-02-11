@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 12, 2024 at 01:39 AM
+-- Generation Time: Feb 12, 2024 at 03:01 AM
 -- Server version: 10.6.17-MariaDB
 -- PHP Version: 8.1.27
 
@@ -54,7 +54,8 @@ INSERT INTO `book` (`ID`, `title`, `subtitle`, `author_ident`, `owned`) VALUES
 (12, 'Taste of Night@The', 'The Second Sign of the Zodiac', 'Pettersson', 1),
 (13, 'Edge of Collapse', NULL, 'Stone', 1),
 (14, 'Conan the Rebel', NULL, 'Anderson', 1),
-(15, 'Holmes, Margaret & Poe', NULL, 'Patterson/Sitts', 1);
+(15, 'Holmes, Margaret & Poe', NULL, 'Patterson/Sitts', 1),
+(16, 'Boat Man@The', NULL, 'Stevens', 1);
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,8 @@ INSERT INTO `book_by` (`book_id`, `person_id`, `role`, `sort_by`) VALUES
 (13, 13, 'author', 0),
 (14, 15, 'author', 0),
 (15, 16, 'author', 1),
-(15, 17, 'author', 2);
+(15, 17, 'author', 2),
+(16, 23, 'author', 0);
 
 -- --------------------------------------------------------
 
@@ -118,7 +120,17 @@ INSERT INTO `book_edition` (`ID`, `book_id`, `edition`, `length`, `year`) VALUES
 (5, 3, 'audible', NULL, NULL),
 (6, 7, 'audible', NULL, NULL),
 (7, 14, 'paperback', 184, '1980'),
-(8, 15, 'audible', 518, '2024');
+(8, 15, 'audible', 518, '2024'),
+(9, 9, 'audible', NULL, NULL),
+(10, 10, 'audible', NULL, NULL),
+(11, 11, 'audible', NULL, NULL),
+(12, 8, 'kindle', NULL, NULL),
+(13, 12, 'kindle', NULL, NULL),
+(14, 6, 'kindle', NULL, NULL),
+(15, 4, 'paperback', NULL, NULL),
+(16, 5, 'kindle', NULL, NULL),
+(17, 16, 'kindle', 343, NULL),
+(18, 16, 'audible', 459, NULL);
 
 -- --------------------------------------------------------
 
@@ -143,13 +155,14 @@ INSERT INTO `book_read` (`ID`, `book_id`, `date_started`, `date_finished`, `edit
 (2, 6, '2024-01-01', '2024-01-05', NULL),
 (3, 7, '2024-01-24', '2024-02-11', 6),
 (4, 8, '2024-01-07', '2024-01-28', NULL),
-(5, 9, NULL, '2024-01-04', NULL),
-(6, 10, NULL, '2024-01-17', NULL),
-(7, 11, NULL, '2024-01-23', NULL),
+(5, 9, NULL, '2024-01-04', 9),
+(6, 10, NULL, '2024-01-17', 10),
+(7, 11, NULL, '2024-01-23', 11),
 (8, 12, NULL, '2024-01-01', NULL),
 (9, 13, NULL, '2024-02-11', 3),
 (10, 14, '2023-10-20', NULL, 7),
-(11, 15, '2024-02-12', NULL, 8);
+(11, 15, '2024-02-12', NULL, 8),
+(12, 16, '2024-02-12', NULL, 17);
 
 -- --------------------------------------------------------
 
@@ -175,7 +188,11 @@ INSERT INTO `edition_by` (`edition_id`, `person_id`, `role`, `sort_by`) VALUES
 (8, 18, 'narrator', 1),
 (8, 19, 'narrator', 2),
 (8, 20, 'narrator', 3),
-(8, 21, 'narrator', 4);
+(8, 21, 'narrator', 4),
+(9, 22, 'narrator', 0),
+(10, 22, 'narrator', 0),
+(11, 22, 'narrator', 0),
+(18, 24, 'narrator', 0);
 
 -- --------------------------------------------------------
 
@@ -215,7 +232,10 @@ INSERT INTO `person` (`ID`, `given_name`, `family_name`, `honorific`) VALUES
 (18, 'Charlotte', 'Ritchie', 'Ms ~'),
 (19, 'Jared', 'Zeus', NULL),
 (20, 'Laurence', 'Bouvard', NULL),
-(21, 'Rashan', 'Stone', NULL);
+(21, 'Rashan', 'Stone', NULL),
+(22, 'Sonja', 'Field', NULL),
+(23, 'Dustin', 'Stevens', NULL),
+(24, 'Charles', 'Constant', NULL);
 
 -- --------------------------------------------------------
 
@@ -238,14 +258,16 @@ INSERT INTO `series` (`ID`, `series`, `author`, `parent`) VALUES
 (1, 'Lost Colonies Trilogy', 2, NULL),
 (2, 'Dragonlance', NULL, NULL),
 (3, 'War of Souls', NULL, 2),
-(4, 'Hidden Valor', 7, NULL),
+(4, 'Kate Holland / Hidden Valor', 7, NULL),
 (5, 'Witch of Tophet County@The', 9, NULL),
 (6, 'Nemesis', 3, NULL),
 (7, 'Signs of the Zodiac', 11, NULL),
 (8, 'Sydney Rye Mysteries', 12, NULL),
 (9, 'Edge of Collapse', 13, NULL),
 (10, 'Conan', NULL, NULL),
-(11, 'Sphere Books', NULL, 10);
+(11, 'Sphere Books', NULL, 10),
+(12, 'Sherlock Holmes', 7, NULL),
+(13, 'Reed & Billie Mysteries', 23, NULL);
 
 -- --------------------------------------------------------
 
@@ -275,7 +297,8 @@ INSERT INTO `series_book` (`series_id`, `book_id`, `number`) VALUES
 (8, 10, 2.00),
 (8, 11, 3.00),
 (9, 13, 1.00),
-(11, 14, 19.00);
+(11, 14, 19.00),
+(13, 16, 1.00);
 
 --
 -- Indexes for dumped tables
@@ -339,31 +362,31 @@ ALTER TABLE `series_book`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `book_edition`
 --
 ALTER TABLE `book_edition`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `book_read`
 --
 ALTER TABLE `book_read`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `series`
 --
 ALTER TABLE `series`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
