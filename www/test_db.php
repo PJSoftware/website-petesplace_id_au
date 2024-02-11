@@ -138,9 +138,9 @@ function book_read($library,$book_id) {
     return "<span title=\"$read[date_finished]\">✔️</span>";
   }
   if ($read['date_started']) {
-    return "<span title=\"Reading now...\">📖</span>";
+    return "<span title=\"Reading now...\">➕</span>";
   }
-  return "❌";
+  return "➖";
 }
 
 $table_name = 'book';
